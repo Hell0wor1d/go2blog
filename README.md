@@ -1,4 +1,4 @@
 go2blog
 =======
 
-Create your blog on github
+Create your blog on github!
