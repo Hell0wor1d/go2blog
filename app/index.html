@@ -13,26 +13,68 @@
     <title>My AngularJS App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/reading.css">
+    <link rel="stylesheet" href="assets/base.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body>
-<ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-</ul>
-
+<body class="output fluid zh tw win reader-day-mode reader-font2">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-
-<div ng-view></div>
-
-<div>Angular seed app: v<span app-version></span></div>
-
+<div class="navbar navbar-jianshu shrink">
+    <div class="dropdown">
+        <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#"
+           href="javascript:void(0)">
+            简
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li class="">
+                <a href="/">
+                    <i class="icon-home"></i> 首页
+                </a>
+            </li>
+            <li>
+                <a href="/top/daily">
+                    <i class="icon-list-ol"></i> 簡書熱門
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="navbar navbar-jianshu expanded">
+    <div class="dropdown">
+        <a class="active logo" data-container="body" data-original-title="個人主頁" href="/" role="button">
+            <b>简</b><i class="icon-home"></i><span class="title">首页</span>
+        </a>
+        <a data-container="body" data-original-title="簡書熱門" data-placement="right" data-toggle="tooltip"
+           href="/top/daily">
+            <i class="icon-list-ol"></i><span class="title">簡書熱門</span>
+        </a>
+    </div>
+    <div class="nav-user">
+        <a href="#view-mode-modal" data-toggle="modal"><i class="icon-font"></i><span class="title">顯示模式</span></a>
+     </div>
+</div>
+<div ng-view>
+</div>
+<div class="hide" id="flash"></div>
+<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal in" aria-hidden="false"
+     data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+        <a class="btn btn-daytime" data-mode="day" href="javascript:void(null);">
+            <i class="icon-sun"></i>
+        </a> <a class="btn btn-nighttime active" data-mode="night" href="javascript:void(null);">
+        <i class="icon-moon"></i>
+    </a></div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+        <a class="btn font " data-font="font1" href="javascript:void(null);">宋體</a>
+        <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑體</a>
+    </div>
+</div>
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
@@ -40,7 +82,7 @@
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="app.js"></script>
 <script src="view1/view1.js"></script>
-<script src="view2/view2.js"></script>
+<script src="view2/home.js"></script>
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
