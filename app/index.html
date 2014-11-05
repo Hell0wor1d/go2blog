@@ -13,14 +13,14 @@
     <title>My AngularJS App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/reading.css">
     <link rel="stylesheet" href="assets/base.css">
+    <link rel="stylesheet" href="assets/reading.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body class="output fluid zh tw win reader-day-mode reader-font2">
+<body class="{{bodylayout}}">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -56,20 +56,21 @@
         </a>
     </div>
     <div class="nav-user">
-        <a href="#view-mode-modal" data-toggle="modal"><i class="icon-font"></i><span class="title">顯示模式</span></a>
+        <a href="javascript:show();" data-toggle="modal"><i class="icon-font"></i><span class="title">顯示模式</span></a>
      </div>
 </div>
 <div ng-view>
 </div>
 <div class="hide" id="flash"></div>
-<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal in" aria-hidden="false"
-     data-js-module="view-mode-modal">
+<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal in" aria-hidden="false">
     <div class="btn-group change-background" data-toggle="buttons-radio">
         <a class="btn btn-daytime" data-mode="day" href="javascript:void(null);">
             <i class="icon-sun"></i>
-        </a> <a class="btn btn-nighttime active" data-mode="night" href="javascript:void(null);">
-        <i class="icon-moon"></i>
-    </a></div>
+        </a>
+        <a class="btn btn-nighttime active" data-mode="night" href="javascript:void(null);">
+            <i class="icon-moon"></i>
+        </a>
+    </div>
     <div class="btn-group change-font" data-toggle="buttons-radio">
         <a class="btn font " data-font="font1" href="javascript:void(null);">宋體</a>
         <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑體</a>
@@ -78,6 +79,16 @@
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
+<script>
+    function show(){
+        var eleStatus = document.getElementById("view-mode-modal").style.display;
+        if(eleStatus == 'none' || eleStatus == ''){
+            document.getElementById("view-mode-modal").style.display = "block";
+        }else{
+            document.getElementById("view-mode-modal").style.display= "none"
+        }
+    }
+</script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="app.js"></script>

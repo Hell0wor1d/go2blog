@@ -1,14 +1,6 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
-
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
-  });
-}])
-
-.controller('View1Ctrl', [function() {
-
-}]);
+angular.module('myApp.article', ['ngRoute'])
+.controller('ArticleCtrl', ['$scope','$rootScope',function($scope,$rootScope) {
+      $rootScope.bodylayout = 'post output fluid reader-day-mode reader-font2 ';
+    }]);
