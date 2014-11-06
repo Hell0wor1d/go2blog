@@ -31,8 +31,6 @@ config(['$routeProvider',
 ]).
 controller('RootCtrl', ['$scope', '$cookieStore', '$location',
     function($scope, $cookieStore, $location) {
-        $scope.pagepost = false;
-        $scope.nofluid = false;
         var rMode = $cookieStore.get('read_mode');
         var pFont = $cookieStore.get('page_font');
         if (rMode === undefined || rMode === '') {
