@@ -4,7 +4,7 @@ describe('myApp.home module', function() {
 
   beforeEach(module('myApp.home'));
 
-  describe('view2 controller', function(){
+  describe('home controller', function(){
 
     it('should ....', inject(function($controller) {
       //spec body

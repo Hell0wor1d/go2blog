@@ -2,20 +2,86 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-  'ngRoute',
-  'myApp.article',
-  'myApp.home',
-  'myApp.version'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider
-      .when('/home',{
-        templateUrl: 'view2/home.html',
-        controller: 'HomeCtrl'
-      })
-      .when('/article', {
-        templateUrl: 'view1/article.html',
-        controller: 'ArticleCtrl'
-      })
-      .otherwise({redirectTo: '/home'});
-}]);
+    'ngRoute',
+    'myApp.article',
+    'myApp.home',
+    'myApp.contact',
+    'ngCookies'
+    //'myApp.version'
+    ]).
+    config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+            .when('/home', {
+                templateUrl: 'views/home.html',
+                controller: 'HomeCtrl'
+            })
+            .when('/article', {
+                templateUrl: 'views/article.html',
+                controller: 'ArticleCtrl'
+            })
+            .when('/contact', {
+                templateUrl: 'views/contact.html',
+                controller: 'ContactCtrl'
+            })
+            .otherwise({redirectTo: '/home'});
+    }]).
+    controller('RootCtrl', ['$scope', '$cookieStore', '$location', function ($scope, $cookieStore, $location) {
+        $scope.isPost = false;
+        var rMode = $cookieStore.get('read_mode');
+        var pFont = $cookieStore.get('page_font');
+        if(rMode === undefined || rMode === ''){
+            $cookieStore.put('read_mode', 'day');
+            $scope.bgcolor = rMode;
+        }
+        if(pFont === undefined || pFont === ''){
+            $cookieStore.put('page_font', 'font2');
+            $scope.pagefont = pFont;
+        }
+        $scope.bgcolor = rMode;
+        $scope.pagefont = pFont;
+        $scope.isDay = rMode === "day";
+
+        //set page font
+        $scope.setPageFont = function (font1) {
+            $scope.isFont1 = font1;
+            if(font1){
+                $cookieStore.put('page_font', 'font1');
+                $scope.pagefont = 'font1';
+            }else{
+                $cookieStore.put('page_font', 'font2');
+                $scope.pagefont = 'font2';
+            }
+        };
+
+        //set read mode
+        $scope.setReadMode = function (day){
+            $scope.isDay = day;
+            if(day){
+                $cookieStore.put('read_mode', 'day');
+                $scope.bgcolor = 'day';
+            }else{
+                $cookieStore.put('read_mode', 'night');
+                $scope.bgcolor = 'night';
+            }
+        };
+
+        $scope.isButtonActive = function (viewLocation) {
+            if(viewLocation === '/home'){
+                $scope.isPost = true;
+            }else{
+                $scope.isPost = false;
+            }
+            var path =  $location.path();
+            return viewLocation === path;
+        };
+
+        $scope.showReadModeModal = function (value) {
+            var ele = document.getElementById("view-mode-modal");
+            if (value) {
+                ele.style.display = "block";
+            } else {
+                ele.style.display = "none"
+            }
+        }
+    }])
+;

@@ -4,7 +4,7 @@ describe('myApp.article module', function() {
 
   beforeEach(module('myApp.article'));
 
-  describe('view1 controller', function(){
+  describe('article controller', function(){
 
     it('should ....', inject(function($controller) {
       //spec body

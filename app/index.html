@@ -20,26 +20,29 @@
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body class="{{bodylayout}}">
+<body ng-controller="RootCtrl" ng-class="{'post':isPost}"
+      class="output fluid reader-{{bgcolor}}-mode reader-{{pagefont}}">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 <div class="navbar navbar-jianshu shrink">
     <div class="dropdown">
-        <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#"
-           href="javascript:void(0)">
-            简
-        </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <a class="dropdown-toggle logo" id="dLabel" href="#/">简</a>
+        <ul class="dropdown-menu">
             <li class="">
-                <a href="/">
+                <a href="#/">
                     <i class="icon-home"></i> 首页
                 </a>
             </li>
             <li>
                 <a href="/top/daily">
-                    <i class="icon-list-ol"></i> 簡書熱門
+                    <i class="icon-github"></i> Github
+                </a>
+            </li>
+            <li>
+                <a href="#/contact">
+                    <i class="icon-heart"></i> 关于作者
                 </a>
             </li>
         </ul>
@@ -47,55 +50,73 @@
 </div>
 <div class="navbar navbar-jianshu expanded">
     <div class="dropdown">
-        <a class="active logo" data-container="body" data-original-title="個人主頁" href="/" role="button">
-            <b>简</b><i class="icon-home"></i><span class="title">首页</span>
+        <a ng-class="{'active':isButtonActive('/home')}" class="logo" href="#/home">
+            <b>简</b>
+            <i class="icon-home"></i>
+            <span class="title">首页</span>
         </a>
-        <a data-container="body" data-original-title="簡書熱門" data-placement="right" data-toggle="tooltip"
-           href="/top/daily">
-            <i class="icon-list-ol"></i><span class="title">簡書熱門</span>
+        <a ng-class="{'active':isButtonActive('/contact')}" href="#/contact">
+            <i class="icon-heart"></i>
+            <span class="title">关于作者</span>
         </a>
     </div>
     <div class="nav-user">
-        <a href="javascript:show();" data-toggle="modal"><i class="icon-font"></i><span class="title">顯示模式</span></a>
-     </div>
+        <a href="javascript:void(null);" ng-click="showReadModeModal(true)">
+            <i class="icon-font"></i>
+            <span class="title">阅读模式</span>
+        </a>
+        <a href="https://github.com/Hell0wor1d/">
+            <i class="icon-github"></i>
+            <span class="title">GitHub</span>
+        </a>
+        <a href="http://weibo.com/lvlc/">
+            <i class="icon-weibo"></i>
+            <span class="title">我的微博</span>
+        </a>
+    </div>
 </div>
-<div ng-view>
+<div ng-view ng-click="showReadModeModal(false)">
 </div>
 <div class="hide" id="flash"></div>
-<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal in" aria-hidden="false">
-    <div class="btn-group change-background" data-toggle="buttons-radio">
-        <a class="btn btn-daytime" data-mode="day" href="javascript:void(null);">
+<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal in">
+    <div class="btn-group change-background">
+        <a ng-class="{'active' : isDay}" class="btn btn-daytime" ng-click="setReadMode(true)" data-mode="day"
+           href="javascript:void(null);">
             <i class="icon-sun"></i>
         </a>
-        <a class="btn btn-nighttime active" data-mode="night" href="javascript:void(null);">
+        <a ng-class="{'active' : !isDay}" class="btn btn-nighttime" ng-click="setReadMode(false)" data-mode="night"
+           href="javascript:void(null);">
             <i class="icon-moon"></i>
         </a>
     </div>
     <div class="btn-group change-font" data-toggle="buttons-radio">
-        <a class="btn font " data-font="font1" href="javascript:void(null);">宋體</a>
-        <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑體</a>
+        <a ng-class="{'active' : isFont1}" class="btn font " data-font="font1" ng-click="setPageFont(true)"
+           href="javascript:void(null);">宋体</a>
+        <a ng-class="{'active' : !isFont1}" class="btn font hei" data-font="font2" ng-click="setPageFont(false)"
+           href="javascript:void(null);">黑体</a>
     </div>
 </div>
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
 <script>
-    function show(){
-        var eleStatus = document.getElementById("view-mode-modal").style.display;
-        if(eleStatus == 'none' || eleStatus == ''){
-            document.getElementById("view-mode-modal").style.display = "block";
-        }else{
-            document.getElementById("view-mode-modal").style.display= "none"
+    document.onmouseup = function (e) {
+        e = window.event ? window.event : e;
+        var srcEle = e.srcElement ? e.srcElement : e.target;
+        if (document.getElementById("view-mode-modal") && srcEle.id != "view-mode-modal") {
+            document.getElementById('view-mode-modal').style.display = 'none';
         }
     }
 </script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="app.js"></script>
-<script src="view1/view1.js"></script>
-<script src="view2/home.js"></script>
-<script src="components/version/version.js"></script>
-<script src="components/version/version-directive.js"></script>
-<script src="components/version/interpolate-filter.js"></script>
+<script src="controllers/article.js"></script>
+<script src="controllers/home.js"></script>
+<script src="controllers/contact.js"></script>
+<!--<script src="components/version/version.js"></script>-->
+<!--<script src="components/version/version-directive.js"></script>-->
+<!--<script src="components/version/interpolate-filter.js"></script>-->
 </body>
 </html>
