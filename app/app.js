@@ -26,20 +26,24 @@ angular.module('myApp', [
             .otherwise({redirectTo: '/home'});
     }]).
     controller('RootCtrl', ['$scope', '$cookieStore', '$location', function ($scope, $cookieStore, $location) {
-        $scope.isPost = false;
+        $scope.pagepost = false;
+        $scope.nofluid = false;
         var rMode = $cookieStore.get('read_mode');
         var pFont = $cookieStore.get('page_font');
         if(rMode === undefined || rMode === ''){
             $cookieStore.put('read_mode', 'day');
+            rMode = $cookieStore.get('read_mode');
             $scope.bgcolor = rMode;
         }
+
         if(pFont === undefined || pFont === ''){
             $cookieStore.put('page_font', 'font2');
+            pFont = $cookieStore.get('page_font');
             $scope.pagefont = pFont;
         }
         $scope.bgcolor = rMode;
         $scope.pagefont = pFont;
-        $scope.isDay = rMode === "day";
+        $scope.isDay = rMode == "day";
 
         //set page font
         $scope.setPageFont = function (font1) {
@@ -66,11 +70,6 @@ angular.module('myApp', [
         };
 
         $scope.isButtonActive = function (viewLocation) {
-            if(viewLocation === '/home'){
-                $scope.isPost = true;
-            }else{
-                $scope.isPost = false;
-            }
             var path =  $location.path();
             return viewLocation === path;
         };

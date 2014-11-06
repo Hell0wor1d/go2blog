@@ -20,44 +20,25 @@
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body ng-controller="RootCtrl" ng-class="{'post':isPost}"
-      class="output fluid reader-{{bgcolor}}-mode reader-{{pagefont}}">
+<body ng-controller="RootCtrl" ng-class="{'post':pagepost, 'no-fluid': nofluid}" class="output reader-{{bgcolor}}-mode reader-{{pagefont}}">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<div class="navbar navbar-jianshu shrink">
-    <div class="dropdown">
-        <a class="dropdown-toggle logo" id="dLabel" href="#/">简</a>
-        <ul class="dropdown-menu">
-            <li class="">
-                <a href="#/">
-                    <i class="icon-home"></i> 首页
-                </a>
-            </li>
-            <li>
-                <a href="/top/daily">
-                    <i class="icon-github"></i> Github
-                </a>
-            </li>
-            <li>
-                <a href="#/contact">
-                    <i class="icon-heart"></i> 关于作者
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
 <div class="navbar navbar-jianshu expanded">
     <div class="dropdown">
         <a ng-class="{'active':isButtonActive('/home')}" class="logo" href="#/home">
-            <b>简</b>
+            <b>我</b>
             <i class="icon-home"></i>
             <span class="title">首页</span>
         </a>
         <a ng-class="{'active':isButtonActive('/contact')}" href="#/contact">
-            <i class="icon-heart"></i>
+            <i class="icon-user"></i>
             <span class="title">关于作者</span>
+        </a>
+        <a href="/rss">
+            <i class="icon-rss"></i>
+            <span class="title">内容订阅</span>
         </a>
     </div>
     <div class="nav-user">
@@ -115,8 +96,5 @@
 <script src="controllers/article.js"></script>
 <script src="controllers/home.js"></script>
 <script src="controllers/contact.js"></script>
-<!--<script src="components/version/version.js"></script>-->
-<!--<script src="components/version/version-directive.js"></script>-->
-<!--<script src="components/version/interpolate-filter.js"></script>-->
 </body>
 </html>
